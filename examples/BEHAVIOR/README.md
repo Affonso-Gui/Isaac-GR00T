@@ -140,8 +140,11 @@ uv run python gr00t/eval/rollout_policy.py \
     --env_name sim_behavior_r1_pro/turning_on_radio \
     --n_action_steps 8 \
     --n_envs 1
+    --disable_video_recording
 ```
-Note that we set `max_episode_steps` to a large value, this is because the BEHAVIOR sim will by default use 2x human steps as the horizon. Setting `max_episode_steps` to a smaller value if you want the evaluation to finish quicker, e.g., for debug purpose. Also, we disable video recording because we found the sim will crash if `decord` is imported in `video_utils.py`.
+Note that we set `max_episode_steps` to a large value, this is because the BEHAVIOR sim will by default use 2x human steps as the horizon. Setting `max_episode_steps` to a smaller value if you want the evaluation to finish quicker, e.g., for debug purpose.  
+Also, we disable video recording because we found the sim will crash if `decord` is imported in `video_utils.py`.
+When enabling recording, make sure to adjust the `n_episodes` and `max_episode_steps` to a smaller amount in order to avoid memory exhaustion.
 
 # Full task list
 - sim_behavior_r1_pro/turning_on_radio

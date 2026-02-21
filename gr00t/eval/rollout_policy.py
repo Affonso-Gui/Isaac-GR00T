@@ -416,6 +416,7 @@ def run_gr00t_sim_policy(
     policy_client_port: int | None = None,
     n_envs: int = 8,
     n_action_steps: int = 8,
+    record_video: bool = True,
 ):
     embodiment_tag = get_embodiment_tag_from_env_name(env_name)
 
@@ -425,9 +426,14 @@ def run_gr00t_sim_policy(
         )
     else:
         video_dir = f"/tmp/sim_eval_videos_{env_name}_ac{n_action_steps}_{uuid.uuid4()}"
-    if env_name.startswith("sim_behavior_r1_pro"):
-        # BEHAVIOR sim will crash if decord is imported in video_utils.py
+
+    if not record_video:
+        # video recording on long evaluations can lead to memory exhaustion.
+        # there was also reports of crashes during BEHAVIOR evaluation on R1 Pro,
+        # although we could not reproduce this.
+        # ref. > BEHAVIOR sim will crash if decord is imported in video_utils.py
         video_dir = None
+
     wrapper_configs = WrapperConfigs(
         video=VideoConfig(
             video_dir=video_dir,
@@ -474,6 +480,8 @@ if __name__ == "__main__":
     parser.add_argument("--n_envs", type=int, default=8)
     parser.add_argument("--n_action_steps", type=int, default=8)
 
+    parser.add_argument("--disable_video_recording", action="store_true")
+
     args = parser.parse_args()
 
     # validate policy configuration
@@ -495,6 +503,7 @@ if __name__ == "__main__":
         policy_client_port=args.policy_client_port,
         n_envs=args.n_envs,
         n_action_steps=args.n_action_steps,
+        record_video=(not args.disable_video_recording),
     )
     print("results: ", results)
     print("success rate: ", np.mean(results[1]))
