@@ -11,16 +11,27 @@ To collect the dataset via teleoperation, please refer to the official documenta
 
 Visualize it with this [link](https://huggingface.co/spaces/lerobot/visualize_dataset?path=%2Fizuluaga%2Ffinish_sandwich%2Fepisode_0)
 
-## Handling the dataset
-
-```bash
-uv run python scripts/lerobot_conversion/convert_v3_to_v2.py --repo-id izuluaga/finish_sandwich \
-  --root examples/SO100/finish_sandwich_lerobot
+Dowload with the following:
+```py
+from datasets import load_dataset
+ds = load_dataset("izuluaga/finish_sandwich")
+ds.save_to_disk("izuluaga/finish_sandwich")
 ```
 
-Then move the `modality.json` file to the root of the dataset.
+## Handling the dataset
+
+First, follow the instructions in [README.md](../../scripts/lerobot_conversion/README.md) to setup the dependencies.  
+Then, execute the conversion as follows.
+
 ```bash
-cp modality.json examples/SO100/finish_sandwich_lerobot/meta/modality.json
+scripts/lerobot_conversion/.venv/bin/python scripts/lerobot_conversion/convert_v3_to_v2.py \
+  --repo-id izuluaga/finish_sandwich \
+  --root examples/SO100
+```
+
+Finally, move the `modality.json` file to the root of the dataset.
+```bash
+cp examples/SO100/modality.json examples/SO100/izuluaga/finish_sandwich/meta/modality.json
 ```
 
 ## Finetuning
