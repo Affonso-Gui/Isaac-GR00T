@@ -48,6 +48,7 @@ First, setup the evaluation simulation environment. This only needs to run once 
 ```bash
 apt-get update
 apt-get install libegl1-mesa-dev libglu1-mesa
+apt-get install git-lfs
 bash gr00t/eval/sim/GR00T-WholeBodyControl/setup_GR00T_WholeBodyControl.sh
 ```
 
