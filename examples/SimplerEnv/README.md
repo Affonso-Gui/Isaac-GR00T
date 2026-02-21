@@ -117,3 +117,13 @@ simpler_env_widowx/widowx_stack_cube
 ```
 
 you can replace the env_name with the corresponding tasks listed in https://github.com/youliangtan/SimplerEnv
+
+## Troubleshooting
+
+On headless servers, the below error can be reported during the execution of the client script.
+```
+RuntimeError: vk::PhysicalDevice::createDeviceUnique: ErrorExtensionNotPresent
+```
+
+If this is the case, try following the ManiSkill installation guide.
+- https://maniskill.readthedocs.io/en/latest/user_guide/getting_started/installation.html#troubleshooting
