@@ -17,7 +17,7 @@ rm -rf "$UV_ENV"
 mkdir -p "$UV_ENV"
 uv venv "$UV_ENV/.venv" --python 3.10
 source "$UV_ENV/.venv/bin/activate"
-uv pip install setuptools>=80.9.0
+uv pip install setuptools==81.0.0
 
 # Core deps (match cluster’s pyproject pattern)
 uv pip install \
