@@ -78,6 +78,8 @@ uv run python gr00t/eval/run_gr00t_server.py \
 ```bash
 gr00t/eval/sim/GR00T-WholeBodyControl/GR00T-WholeBodyControl_uv/.venv/bin/python gr00t/eval/rollout_policy.py \
     --n_episodes 10 \
+    --policy_client_host 127.0.0.1 \
+    --policy_client_port 5555 \
     --max_episode_steps=1440 \
     --env_name gr00tlocomanip_g1_sim/LMPnPAppleToPlateDC_G1_gear_wbc \
     --n_action_steps 20 \
