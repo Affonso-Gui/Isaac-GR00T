@@ -9,6 +9,10 @@ def is_behavior_env(env_name: str) -> bool:
     return env_name.startswith("sim_behavior_r1_pro")
 
 
+def is_simpler_env(env_name: str) -> bool:
+    return env_name.startswith("simpler_env")
+
+
 def is_gr1_env(env_name: str) -> bool:
     """ensures gr1 and gr1_unified are the same embodiment tag"""
     return env_name.startswith("gr1") or env_name.startswith("gr1_unified")
@@ -22,6 +26,13 @@ def get_embodiment_tag_from_env_name(env_name: str) -> EmbodimentTag:
             "gr00tlocomanip_g1_new": EmbodimentTag.UNITREE_G1,
         }
         return groot_locomanip_mappings[env_name.split("/")[0]]
+
+    if is_simpler_env(env_name):
+        simpler_env_mappings = {
+            "simpler_env_google": EmbodimentTag.OXE_GOOGLE,
+            "simpler_env_widowx": EmbodimentTag.OXE_WIDOWX,
+        }
+        return simpler_env_mappings[env_name.split("/")[0]]
 
     if is_behavior_env(env_name):
         return EmbodimentTag.BEHAVIOR_R1_PRO
