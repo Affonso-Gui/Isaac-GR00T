@@ -177,7 +177,10 @@ def convert_data(
     for (chunk_idx, file_idx), records in tqdm.tqdm(grouped.items(), desc="convert data files"):
         source_path = root / DEFAULT_DATA_PATH.format(chunk_index=chunk_idx, file_index=file_idx)
         if not source_path.exists():
-            raise FileNotFoundError(f"Expected source parquet file not found: {source_path}")
+            # There seems to be some incompleted data remaining on the dataset
+            # log the error and continue
+            logging.error(f"Expected source parquet file not found: {source_path}")
+            continue
 
         table = pq.read_table(source_path)
         records = sorted(records, key=lambda rec: int(rec["dataset_from_index"]))
